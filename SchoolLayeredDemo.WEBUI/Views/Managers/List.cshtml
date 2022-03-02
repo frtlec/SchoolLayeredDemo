@@ -1,0 +1,47 @@
+﻿@model List<ManagerDto>
+<h4>Yöneticiler</h4>
+    @if (TempData["Error"] == null)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Adı Soyadı</th>
+                <th scope="col">Oluşturulma T.</th>
+                <th scope="col">Güncellenme T.</th>
+                <th scope="col">İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int rowId = 1;
+            }
+            @foreach (var manager in Model)
+            {
+
+
+                <tr>
+                    <th scope="row">@rowId</th>
+                    <td>@manager.FullName</td>
+                    <td>@manager.CreatedDate</td>
+                    <td>@manager.UpdatedDate</td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="detail" asp-controller="managers" asp-route-id="@manager.Id">Detay</a>
+                    </td>
+                </tr>
+                rowId++;
+            }
+
+        </tbody>
+    </table>
+}
+else
+{ @foreach (var error in TempData["Error"] as List<string>)
+    {
+        <p class="alert alert-danger">
+            @error
+        </p>
+    }
+
+}
+
